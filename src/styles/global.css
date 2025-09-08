@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@tailwind utilities;
+
+@theme {
+  --color-general-primary: #89023e;
+  --color-general-secondary: #ea638c;
+  --color-general-tertiary: #ffd9da;
+
+  --font-sans: "Montserrat", sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
+}
