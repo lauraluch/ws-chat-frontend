@@ -20,7 +20,7 @@ export const Typography: React.FC<PropsWithChildren<Props>> = ({
 
   return (
     <Tag
-      style={{ color: color || "white" }}
+      style={{ color: color || "black" }}
       className={`${variantClass} text-${alignment} ${className}`}
     >
       {children}

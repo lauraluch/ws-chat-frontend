@@ -1,25 +1,29 @@
-import type { PropsWithChildren } from "react";
+import type { JSX, PropsWithChildren } from "react";
 import clsx from "clsx";
 import type React from "react";
 import { Typography } from "../../toolkit/Typography";
 
 interface Props {
   title?: string;
+  endComponent?: JSX.Element;
   alignment?: "center" | "start" | "end";
   width?: string;
+  height?: string;
 }
 
 export const Card: React.FC<PropsWithChildren<Props>> = ({
   title,
+  endComponent,
   alignment,
   children,
+  height,
   width,
 }) => {
   return (
     <div
-      style={{ width, maxWidth: width }}
+      style={{ width, maxWidth: width, height, maxHeight: height }}
       className={clsx(
-        "flex flex-col gap-1 p-4 rounded-lg bg-general-primary",
+        "flex flex-col gap-1 p-4 rounded-xl bg-general-white",
         alignment && {
           "items-center": alignment === "center",
           "items-start": alignment === "start",
@@ -27,7 +31,14 @@ export const Card: React.FC<PropsWithChildren<Props>> = ({
         }
       )}
     >
-      <Typography variant="h3">{title}</Typography>
+      <div className="flex flex-row w-full justify-between items-center gap-2">
+        <Typography variant="h5" color={"var(--color-text-primary)"}>
+          {title}
+        </Typography>
+
+        {endComponent}
+      </div>
+
       {children}
     </div>
   );

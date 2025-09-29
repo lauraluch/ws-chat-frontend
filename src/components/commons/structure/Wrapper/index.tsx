@@ -3,7 +3,7 @@ import type React from "react";
 
 export const Wrapper: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div className="flex flex-col items-center justify-center w-full h-[100dvh] bg-[#1c1c1c]">
+    <div className="flex flex-col items-center overflow-hidden justify-center w-full h-[100dvh] p-3 box-border bg-general-background">
       {children}
     </div>
   );

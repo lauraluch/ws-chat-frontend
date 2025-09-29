@@ -11,23 +11,25 @@ export type TextVariant =
   | "s3"
   | "p1"
   | "p2"
-  | "p3";
+  | "p3"
+  | "p4";
 
 export const variantMap: Record<
   TextVariant,
   { tag: keyof JSX.IntrinsicElements; className: string }
 > = {
   h1: { tag: "h1", className: "text-4xl font-bold" },
-  h2: { tag: "h2", className: "text-3xl font-semibold" },
-  h3: { tag: "h3", className: "text-2xl font-semibold" },
-  h4: { tag: "h4", className: "text-xl font-medium" },
-  h5: { tag: "h5", className: "text-lg font-medium" },
+  h2: { tag: "h2", className: "text-3xl font-bold" },
+  h3: { tag: "h3", className: "text-2xl font-bold" },
+  h4: { tag: "h4", className: "text-xl font-semibold" },
+  h5: { tag: "h5", className: "text-lg font-semibold" },
 
   s1: { tag: "span", className: "text-base font-semibold" },
-  s2: { tag: "span", className: "text-sm font-medium" },
-  s3: { tag: "span", className: "text-xs font-medium uppercase" },
+  s2: { tag: "span", className: "text-sm font-semibold" },
+  s3: { tag: "span", className: "text-xs font-semibold" },
 
-  p1: { tag: "p", className: "text-base" },
-  p2: { tag: "p", className: "text-sm" },
-  p3: { tag: "p", className: "text-xs text-gray-500" },
+  p1: { tag: "p", className: "text-base font-medium" },
+  p2: { tag: "p", className: "text-sm font-medium" },
+  p3: { tag: "p", className: "text-xs font-medium" },
+  p4: { tag: "p", className: "text-[10px] font-medium" },
 };
