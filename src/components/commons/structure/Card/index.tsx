@@ -9,6 +9,7 @@ interface Props {
   alignment?: "center" | "start" | "end";
   width?: string;
   height?: string;
+  gap?: string;
 }
 
 export const Card: React.FC<PropsWithChildren<Props>> = ({
@@ -18,10 +19,11 @@ export const Card: React.FC<PropsWithChildren<Props>> = ({
   children,
   height,
   width,
+  gap,
 }) => {
   return (
     <div
-      style={{ width, maxWidth: width, height, maxHeight: height }}
+      style={{ width, maxWidth: width, height, maxHeight: height, gap }}
       className={clsx(
         "flex flex-col gap-1 p-4 rounded-xl bg-general-white",
         alignment && {

@@ -8,6 +8,7 @@ import { RoomCodeBadge } from "../../commons/structure/RoomCodeBadge";
 import { Typography } from "../../commons/toolkit/Typography";
 import { UserItem } from "../../commons/structure/UserItem";
 import { USERS_MOCK } from "../../../mocks/users";
+import { MessageInput } from "../../commons/inputs/MessageInput";
 
 export const InitialPage: React.FC = () => {
   return (
@@ -60,7 +61,7 @@ export const InitialPage: React.FC = () => {
           </div>
 
           <div className="flex flex-col flex-5">
-            <Card title="Mensagens" height="100%">
+            <Card title="Mensagens" height="100%" gap="16px">
               <div className="flex flex-col h-full w-full p-3 overflow-auto custom-scrollbar gap-3 rounded-lg custom-messages-bg">
                 {MESSAGES_MOCK.map((message) => (
                   <MessageItem
@@ -71,7 +72,12 @@ export const InitialPage: React.FC = () => {
                 ))}
               </div>
 
-              <div className="flex w-full h-[45px] min-h-[45px] rounded-lg bg-general-background"></div>
+              <MessageInput
+                onSendMessage={function (message: string): void {
+                  console.log(message);
+                }}
+              />
+              {/* <div className="flex w-full h-[45px] min-h-[45px] rounded-lg bg-general-background"></div> */}
             </Card>
           </div>
         </div>

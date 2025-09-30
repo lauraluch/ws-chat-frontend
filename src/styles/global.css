@@ -4,6 +4,7 @@
 @theme {
   --color-general-primary: #8140b9;
   --color-general-primary-light: #ecdcfa;
+  --color-general-primary-lightest: #f8f1ff;
 
   --color-general-background: #dbc9eb;
   --color-general-darker-background: #c5a6e1;
