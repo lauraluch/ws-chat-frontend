@@ -3,6 +3,7 @@
 
 @theme {
   --color-general-primary: #8140b9;
+  --color-general-primary-medium: #965aca;
   --color-general-primary-light: #ecdcfa;
   --color-general-primary-lightest: #f8f1ff;
 
@@ -16,6 +17,7 @@
   --color-text-placeholder: #6b6b6b;
 
   --color-layout-surface: #f2f2f2;
+  --color-layout-surface-dark: #e5e5e5;
   --color-layout-border: #d4d4d4;
 
   --font-sans: "Montserrat", sans-serif;
