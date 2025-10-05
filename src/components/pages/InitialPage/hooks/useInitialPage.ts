@@ -1,9 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import type { ChatForm } from "../types";
 import { useChatContext } from "../../../../services/contexts/useChatContext";
 import { useNavigate } from "react-router-dom";
-import { socket } from "../../../../services/socket";
+import {
+  createRoomSocket,
+  joinRoomSocket,
+} from "../../../../services/socket/initialHandlers";
 
 export function useInitialPage() {
   // Hooks
@@ -23,88 +25,54 @@ export function useInitialPage() {
       [key]: value,
     }));
   }
-
   async function handleCreateChat() {
-    // createUser({
-    //   userId: "1",
-    //   username: form.username,
-    // });
-
-    // const roomCode = generateRoomCode();
-
-    // createChat({
-    //   code: roomCode,
-    // });
-
     try {
-      await createRoom(form.username);
+      createRoomSocket(form.username, (response) => {
+        if (response.ok) {
+          setUser({
+            userId: response.user.userId,
+            socketId: response.user.socketId,
+            username: form.username,
+          });
+
+          setChat({
+            ownerSocketId: response.user.socketId,
+            code: response.code!,
+          });
+
+          navigate("/chat");
+        } else {
+          console.error(response.error);
+        }
+      });
     } catch (e) {
       console.log(e);
     }
   }
 
   async function handleEnterChat() {
-    // createUser({
-    //   userId: "1",
-    //   username: form.username,
-    // });
-
-    // createChat({
-    //   code: form.roomCode,
-    // });
-
     try {
-      await joinRoom(form.username, form.roomCode);
+      joinRoomSocket(form.username, form.roomCode, (response) => {
+        if (response.ok) {
+          setUser({
+            userId: response.user.userId,
+            socketId: response.user.socketId,
+            username: form.username,
+          });
+
+          setChat({
+            ownerSocketId: response.ownerSocketId,
+            code: form.roomCode,
+          });
+
+          navigate("/chat");
+        } else {
+          console.error(response.error);
+        }
+      });
     } catch (e) {
       console.log(e);
     }
-  }
-
-  async function createRoom(username: string) {
-    socket.emit("create_room", { username }, (response: any) => {
-      if (response.ok) {
-        console.log("[createRoom]", response);
-
-        setUser({
-          userId: response.user.userId,
-          socketId: response.user.socketId,
-          username: form.username,
-        });
-
-        setChat({
-          ownerSocketId: response.user.socketId,
-          code: response.code,
-        });
-
-        navigate("/chat");
-      } else {
-        console.error(response.error);
-      }
-    });
-  }
-
-  async function joinRoom(username: string, code: string) {
-    socket.emit("join_room", { username, code }, (response: any) => {
-      if (response.ok) {
-        console.log("[joinRoom]", response);
-
-        setUser({
-          userId: response.user.userId,
-          socketId: response.user.socketId,
-          username: form.username,
-        });
-
-        setChat({
-          ownerSocketId: response?.ownerSocketId,
-          code: code,
-        });
-
-        navigate("/chat");
-      } else {
-        console.error(response.error);
-        console.log("[joinRoom]", response);
-      }
-    });
   }
 
   return {

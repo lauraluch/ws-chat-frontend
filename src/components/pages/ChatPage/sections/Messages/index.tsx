@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const Messages: React.FC<Props> = ({ messages, onSendMessage }) => {
-  const { user } = useChatContext();
+  const { user, chat } = useChatContext();
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -22,6 +22,9 @@ export const Messages: React.FC<Props> = ({ messages, onSendMessage }) => {
       container.scrollTop = container.scrollHeight;
     }
   }, [messages]);
+
+  console.log(chat);
+  console.log(user);
 
   return (
     <div className="flex flex-col h-full">
@@ -35,7 +38,7 @@ export const Messages: React.FC<Props> = ({ messages, onSendMessage }) => {
               <MessageItem
                 key={message.id}
                 message={message}
-                isSelf={message.userId === user?.userId}
+                isSelf={message.userSocketId === user?.socketId}
               />
             ))}
           </div>

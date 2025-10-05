@@ -1,8 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useEffect } from "react";
 import { useChatContext } from "../../../../services/contexts/useChatContext";
-import { socket } from "../../../../services/socket";
 import { useNavigate } from "react-router-dom";
+import {
+  leaveRoom,
+  sendMessage,
+  setupSocketListeners,
+} from "../../../../services/socket/handlers";
 
 export function useChatPage() {
   // Hooks
@@ -16,60 +19,35 @@ export function useChatPage() {
       return;
     }
 
-    socket.emit("leave_room", (response: any) => {
-      console.log("[leave_room]", response);
+    leaveRoom(() => {
       resetChat();
       navigate("/");
     });
   }, [chat?.code, resetChat, navigate]);
 
+  // Effects
   useEffect(() => {
-    const handleRoomState = (roomState: any) => {
-      console.log("[room state]:", roomState);
-      setChat((prev) => ({
-        ...prev,
-        code: roomState.code,
-        ownerName: roomState.ownerName,
-        ownerPresent: roomState.ownerPresent,
-        users: roomState.users,
-        messages: roomState.messages,
-      }));
-    };
-
-    const handleNewMessage = (message: any) => {
-      console.log("[new message]", message);
-      setChat((prev) => ({
-        ...prev,
-        messages: [...(prev.messages || []), message],
-      }));
-    };
-
-    if (!socket.hasListeners("room_state")) {
-      socket.on("room_state", handleRoomState);
+    if (!chat?.code) {
+      resetChat();
+      navigate("/");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chat?.code]);
 
-    if (!socket.hasListeners("new_message")) {
-      socket.on("new_message", handleNewMessage);
-    }
-
-    socket.emit("request_room_state");
-
-    return () => {
-      socket.off("room_state", handleRoomState);
-      socket.off("new_message", handleNewMessage);
-    };
+  useEffect(() => {
+    const cleanup = setupSocketListeners(setChat);
+    return cleanup;
   }, [setChat]);
 
-  const sendMessage = useCallback((text: string) => {
-    if (!text.trim()) return;
-    socket.emit("send_message", { text });
+  const emitMessage = useCallback((text: string) => {
+    sendMessage(text);
   }, []);
 
   return {
     user,
     chat,
     clearMessages,
-    sendMessage,
+    sendMessage: emitMessage,
     handleSignout,
   };
 }
