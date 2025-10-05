@@ -15,6 +15,10 @@ export function useChatPage() {
   }
 
   useEffect(() => {
+    if (!chat?.code) navigate("/");
+  }, []);
+
+  useEffect(() => {
     socket.on("room_state", (roomState) => {
       setChat({
         ...chat,

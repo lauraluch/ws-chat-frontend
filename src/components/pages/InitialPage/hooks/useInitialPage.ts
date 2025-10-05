@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { ChatForm } from "../types";
 import { useChatContext } from "../../../../services/contexts/useChatContext";
 import { useNavigate } from "react-router-dom";
 import { socket } from "../../../../services/socket";
-import { ChatStorage } from "../../../../services/cache/chatStorage";
-
-const storage = new ChatStorage();
 
 export function useInitialPage() {
   // Hooks
@@ -63,19 +60,6 @@ export function useInitialPage() {
     }
   }
 
-  useEffect(() => {
-    if (storage.isUserLoggedIn()) {
-      const user = storage.getUser();
-      const chat = storage.getChat();
-      if (user && chat) {
-        setUser(user);
-        setChat(chat);
-        navigate("/chat");
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   async function createRoom(username: string) {
     socket.emit("create_room", { username }, (response: any) => {
       if (response.ok) {
@@ -90,18 +74,6 @@ export function useInitialPage() {
         setChat({
           ownerSocketId: response.user.socketId,
           code: response.code,
-        });
-
-        storage.save({
-          user: {
-            userId: response.user.userId,
-            socketId: response.user.socketId,
-            username: form.username,
-          },
-          chat: {
-            code: response.code,
-            ownerSocketId: response.user.socketId,
-          },
         });
 
         navigate("/chat");
@@ -125,18 +97,6 @@ export function useInitialPage() {
         setChat({
           ownerSocketId: response?.ownerSocketId,
           code: code,
-        });
-
-        storage.save({
-          user: {
-            userId: response.user.userId,
-            socketId: response.user.socketId,
-            username: form.username,
-          },
-          chat: {
-            code,
-            ownerSocketId: response.ownerSocketId,
-          },
         });
 
         navigate("/chat");

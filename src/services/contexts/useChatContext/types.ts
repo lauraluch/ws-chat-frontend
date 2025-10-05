@@ -5,8 +5,8 @@ export interface ChatContextData {
   chat?: Chat;
   user?: User;
   chatOwnerSocketId?: string;
-  setChat: (chatData: Partial<Chat>) => void;
-  setUser: (userData: User) => void;
+  setChat: React.Dispatch<React.SetStateAction<Chat>>;
+  setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
 
   resetChat: () => void;
 }

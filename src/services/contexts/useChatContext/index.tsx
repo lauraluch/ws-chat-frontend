@@ -1,4 +1,4 @@
-/* eslint-disable react-refresh/only-export-components */
+// External Libraries
 import React, {
   createContext,
   useContext,
@@ -10,42 +10,19 @@ import React, {
 import type { ChatContextData } from "./types";
 import type { Chat } from "../../../types/Chat";
 import type { User } from "../../../types/User";
-import { ChatStorage } from "../../cache/chatStorage";
-
-// Storage
-
-const storage = new ChatStorage();
 
 const ChatContext = createContext<ChatContextData>({} as ChatContextData);
 
 const ChatContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  // Inicializa os estados com o que estiver no localStorage
-  const [user, setUserState] = useState<User | undefined>(() =>
-    storage.getUser()
-  );
-  const [chat, setChatState] = useState<Chat>(
-    () => storage.getChat() || { users: [], messages: [] }
-  );
+  const [user, setUser] = useState<User>();
+  const [chat, setChat] = useState<Chat>({
+    users: [],
+    messages: [],
+  });
 
-  // Funções para atualizar estado + localStorage
-  const setUser = (userData: User) => {
-    setUserState(userData);
-    storage.save({ user: userData });
-  };
-
-  const setChat = (chatData: Partial<Chat>) => {
-    setChatState((prev) => {
-      const newChat = { ...prev, ...chatData };
-      storage.save({ chat: newChat });
-      return newChat;
-    });
-  };
-
-  const resetChat = () => {
-    setUserState(undefined);
-    setChatState({ users: [], messages: [] });
-    storage.clear();
-  };
+  function resetChat() {
+    setChat({ users: [], messages: [] });
+  }
 
   return (
     <ChatContext.Provider
@@ -72,4 +49,5 @@ function useChatContext(): ChatContextData {
   return context;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export { ChatContextProvider, useChatContext };
