@@ -1,14 +1,12 @@
 import { LogOut, MessageCircleMore, UserRound } from "lucide-react";
 import type { SidebarItem } from "../../../../types/SidebarItem";
 
-export function getSidebarItems(): SidebarItem[] {
+export function getSidebarItems(onSignoutClick: () => void): SidebarItem[] {
   return [
     {
       label: "Signout",
       icon: <LogOut size={20} color="var(--color-text-primary)" />,
-      onClick: () => {
-        console.log("Signout clicked");
-      },
+      onClick: onSignoutClick,
     },
     {
       label: "Chat",

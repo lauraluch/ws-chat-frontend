@@ -7,12 +7,12 @@ import { Messages } from "./sections/Messages";
 import { useChatPage } from "./hooks/useChatPage";
 
 export const ChatPage: React.FC = () => {
-  const { chat, sendMessage } = useChatPage();
+  const { chat, sendMessage, handleSignout } = useChatPage();
 
   return (
     <div className="flex flex-col w-full h-full gap-4">
       <div className="flex flex-row flex-1 h-full gap-4">
-        <Sidebar items={getSidebarItems()} />
+        <Sidebar items={getSidebarItems(handleSignout)} />
 
         <div className="flex flex-row flex-1 gap-4">
           <div className="flex flex-col gap-4 flex-2 max-w-[330px]">
