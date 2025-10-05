@@ -9,4 +9,5 @@ export interface ChatContextData {
   setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
 
   resetChat: () => void;
+  clearMessages: () => void;
 }

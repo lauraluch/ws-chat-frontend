@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useEffect } from "react";
 import { useChatContext } from "../../../../services/contexts/useChatContext";
 import { socket } from "../../../../services/socket";
@@ -6,46 +7,58 @@ import { useNavigate } from "react-router-dom";
 export function useChatPage() {
   // Hooks
   const navigate = useNavigate();
-  const { user, chat, setChat, resetChat } = useChatContext();
+  const { user, chat, setChat, resetChat, clearMessages } = useChatContext();
 
-  // Functions
-  function handleSignout() {
-    resetChat();
-    navigate("/");
-  }
+  const handleSignout = useCallback(() => {
+    if (!chat?.code) {
+      resetChat();
+      navigate("/");
+      return;
+    }
+
+    socket.emit("leave_room", (response: any) => {
+      console.log("[leave_room]", response);
+      resetChat();
+      navigate("/");
+    });
+  }, [chat?.code, resetChat, navigate]);
 
   useEffect(() => {
-    if (!chat?.code) navigate("/");
-  }, []);
-
-  useEffect(() => {
-    socket.on("room_state", (roomState) => {
-      setChat({
-        ...chat,
+    const handleRoomState = (roomState: any) => {
+      console.log("[room state]:", roomState);
+      setChat((prev) => ({
+        ...prev,
         code: roomState.code,
         ownerName: roomState.ownerName,
         ownerPresent: roomState.ownerPresent,
         users: roomState.users,
         messages: roomState.messages,
-      });
-    });
+      }));
+    };
 
-    socket.on("new_message", (message) => {
+    const handleNewMessage = (message: any) => {
       console.log("[new message]", message);
+      setChat((prev) => ({
+        ...prev,
+        messages: [...(prev.messages || []), message],
+      }));
+    };
 
-      setChat({
-        ...chat,
-        messages: [...(chat?.messages || []), message],
-      });
-    });
+    if (!socket.hasListeners("room_state")) {
+      socket.on("room_state", handleRoomState);
+    }
+
+    if (!socket.hasListeners("new_message")) {
+      socket.on("new_message", handleNewMessage);
+    }
 
     socket.emit("request_room_state");
 
     return () => {
-      socket.off("room_state");
-      socket.off("new_message");
+      socket.off("room_state", handleRoomState);
+      socket.off("new_message", handleNewMessage);
     };
-  }, [setChat, chat]);
+  }, [setChat]);
 
   const sendMessage = useCallback((text: string) => {
     if (!text.trim()) return;
@@ -55,6 +68,7 @@ export function useChatPage() {
   return {
     user,
     chat,
+    clearMessages,
     sendMessage,
     handleSignout,
   };

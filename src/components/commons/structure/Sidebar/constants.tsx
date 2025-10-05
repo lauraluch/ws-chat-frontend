@@ -1,7 +1,10 @@
-import { LogOut, MessageCircleMore, UserRound } from "lucide-react";
+import { LogOut, MessageCircleOff } from "lucide-react";
 import type { SidebarItem } from "../../../../types/SidebarItem";
 
-export function getSidebarItems(onSignoutClick: () => void): SidebarItem[] {
+export function getSidebarItems(
+  onSignoutClick: () => void,
+  onClearChatClick: () => void
+): SidebarItem[] {
   return [
     {
       label: "Signout",
@@ -9,18 +12,9 @@ export function getSidebarItems(onSignoutClick: () => void): SidebarItem[] {
       onClick: onSignoutClick,
     },
     {
-      label: "Chat",
-      icon: <MessageCircleMore size={20} color="var(--color-text-primary)" />,
-      onClick: () => {
-        console.log("Chat messages clicked");
-      },
-    },
-    {
-      label: "User",
-      icon: <UserRound size={20} color="var(--color-text-primary)" />,
-      onClick: () => {
-        console.log("User clicked");
-      },
+      label: "Clear chat",
+      icon: <MessageCircleOff size={20} color="var(--color-text-primary)" />,
+      onClick: onClearChatClick,
     },
   ];
 }

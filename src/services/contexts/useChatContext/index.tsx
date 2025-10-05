@@ -21,7 +21,15 @@ const ChatContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
   });
 
   function resetChat() {
-    setChat({ users: [], messages: [] });
+    setChat({ users: [], messages: [], code: undefined });
+    setUser(undefined);
+  }
+
+  function clearMessages() {
+    setChat((prev) => ({
+      ...prev,
+      messages: [],
+    }));
   }
 
   return (
@@ -32,6 +40,7 @@ const ChatContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
         chat,
         setChat,
         resetChat,
+        clearMessages,
       }}
     >
       {children}
