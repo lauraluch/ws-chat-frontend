@@ -10,6 +10,12 @@ export const MessageInput: React.FC<Props> = ({ onSendMessage }) => {
   // States
   const [inputValue, setInputValue] = useState("");
 
+  // Functions
+  function handleSendMessage() {
+    onSendMessage(inputValue);
+    setInputValue("");
+  }
+
   return (
     <div
       className={`flex flex-row items-center w-full gap-4`}
@@ -20,6 +26,11 @@ export const MessageInput: React.FC<Props> = ({ onSendMessage }) => {
         onChange={(e) => setInputValue(e.currentTarget.value)}
         className={`flex flex-row items-center w-full h-full p-2 bg-white border-1 border-general-primary-light rounded-lg focus:outline-general-darker-background focus:outline-1 focus:border-general-darker-background`}
         placeholder="Digite uma mensagem..."
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSendMessage();
+          }
+        }}
       />
 
       <div
@@ -28,7 +39,7 @@ export const MessageInput: React.FC<Props> = ({ onSendMessage }) => {
           width: `${MESSAGE_INPUT_HEIGHT_PX}px`,
           height: `${MESSAGE_INPUT_HEIGHT_PX}px`,
         }}
-        onClick={() => onSendMessage(inputValue)}
+        onClick={handleSendMessage}
       >
         <SendHorizonal size={20} color={"var(--color-general-primary)"} />
       </div>

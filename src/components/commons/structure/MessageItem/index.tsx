@@ -12,13 +12,13 @@ export const MessageItem: React.FC<Props> = ({ message, isSelf }) => {
   return (
     <div
       className={clsx(
-        "flex flex-row w-full",
+        "flex relative flex-row w-full",
         isSelf ? "justify-end" : "justify-start"
       )}
     >
       <div
         className={clsx(
-          "flex relative flex-col p-3 gap-2 max-w-[380px] w-fit text-wrap  rounded-lg mb-[24px]",
+          "flex  flex-col p-3 gap-2 max-w-[380px] w-fit text-wrap  rounded-lg mb-[24px]",
           isSelf ? "bg-general-darker-background" : "bg-general-white"
         )}
       >
@@ -36,12 +36,17 @@ export const MessageItem: React.FC<Props> = ({ message, isSelf }) => {
         >
           {message.text}
         </Typography>
+      </div>
 
-        <div className="flex absolute bottom-[-24px] left-0 flex-row justify-end w-full">
-          <Typography variant="p4" color="var(--color-text-secondary)">
-            {formatTimestamp(message.timestamp)}
-          </Typography>
-        </div>
+      <div
+        className="flex absolute bottom-[0px] flex-row w-full whitespace-nowrap px-2"
+        style={{
+          justifyContent: isSelf ? "flex-end" : "flex-start",
+        }}
+      >
+        <Typography variant="p4" color="var(--color-text-secondary)">
+          {formatTimestamp(message.timestamp)}
+        </Typography>
       </div>
     </div>
   );

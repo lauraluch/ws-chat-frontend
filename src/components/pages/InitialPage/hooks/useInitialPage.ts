@@ -66,12 +66,14 @@ export function useInitialPage() {
         console.log("[createRoom]", response);
 
         setUser({
-          userId: "1dasjhg54jb3hg4",
+          userId: response.user.userId,
+          socketId: response.user.socketId,
           username: form.username,
         });
 
         setChat((prev) => ({
           ...prev,
+          ownerSocketId: response.user.socketId,
           code: response.code,
         }));
 
@@ -88,7 +90,8 @@ export function useInitialPage() {
         console.log("[joinRoom]", response);
 
         setUser({
-          userId: "123ruf455g4hj",
+          userId: response.user.userId,
+          socketId: response.user.socketId,
           username: form.username,
         });
 

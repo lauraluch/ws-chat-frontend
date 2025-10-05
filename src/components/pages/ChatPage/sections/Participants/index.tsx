@@ -1,3 +1,4 @@
+import { useChatContext } from "../../../../../services/contexts/useChatContext";
 import type { User } from "../../../../../types/User";
 import { Card } from "../../../../commons/structure/Card";
 import { UserItem } from "../../../../commons/structure/UserItem";
@@ -8,6 +9,8 @@ interface Props {
 }
 
 export const Participants: React.FC<Props> = ({ participants }) => {
+  const { chat, user } = useChatContext();
+
   return (
     <div>
       <Card
@@ -19,12 +22,12 @@ export const Participants: React.FC<Props> = ({ participants }) => {
           </Typography>
         }
       >
-        {participants.map((user) => (
+        {participants.map((participant) => (
           <UserItem
-            key={`user-${user.userId}`}
-            user={user}
-            isSelf={user.userId === "user1"}
-            isCreator={user.userId === "user1"}
+            key={`user-${participant.userId}`}
+            user={participant}
+            isSelf={participant.userId === user?.userId}
+            isCreator={participant.socketId === chat?.ownerSocketId}
           />
         ))}
       </Card>

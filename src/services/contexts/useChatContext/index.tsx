@@ -25,7 +25,15 @@ const ChatContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
   }
 
   return (
-    <ChatContext.Provider value={{ user, setUser, chat, setChat, resetChat }}>
+    <ChatContext.Provider
+      value={{
+        user,
+        setUser,
+        chat,
+        setChat,
+        resetChat,
+      }}
+    >
       {children}
     </ChatContext.Provider>
   );

@@ -1,3 +1,5 @@
+import React, { useEffect, useRef } from "react";
+import { useChatContext } from "../../../../../services/contexts/useChatContext";
 import type { Message } from "../../../../../types/Message";
 import { MessageInput } from "../../../../commons/inputs/MessageInput";
 import { MESSAGE_INPUT_HEIGHT_PX } from "../../../../commons/inputs/MessageInput/constant";
@@ -10,18 +12,30 @@ interface Props {
 }
 
 export const Messages: React.FC<Props> = ({ messages, onSendMessage }) => {
+  const { user } = useChatContext();
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+    }
+  }, [messages]);
+
   return (
     <div className="flex flex-col h-full">
       <Card title="Mensagens" height="100%" gap="16px">
-        {/* Container geral do card */}
         <div className="flex flex-col h-full overflow-hidden">
-          {/* Lista de mensagens rolável */}
-          <div className="flex-1 overflow-auto p-3 gap-3 flex flex-col rounded-lg custom-scrollbar custom-messages-bg">
+          <div
+            ref={scrollRef}
+            className="flex-1 overflow-auto p-3 gap-3 flex flex-col rounded-lg custom-scrollbar custom-messages-bg"
+          >
             {messages.map((message) => (
               <MessageItem
                 key={message.id}
                 message={message}
-                isSelf={message.userId === "user1"}
+                isSelf={message.userId === user?.userId}
               />
             ))}
           </div>
