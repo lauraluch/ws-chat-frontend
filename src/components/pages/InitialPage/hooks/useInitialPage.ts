@@ -6,6 +6,7 @@ import {
   createRoomSocket,
   joinRoomSocket,
 } from "../../../../services/socket/initialHandlers";
+import { treatErrorMessages } from "../../../../services/functions/treatErrorMessages";
 
 export function useInitialPage() {
   // Hooks
@@ -26,53 +27,47 @@ export function useInitialPage() {
     }));
   }
   async function handleCreateChat() {
-    try {
-      createRoomSocket(form.username, (response) => {
-        if (response.ok) {
-          setUser({
-            userId: response.user.userId,
-            socketId: response.user.socketId,
-            username: form.username,
-          });
+    createRoomSocket(form.username, (response) => {
+      if (response.ok) {
+        setUser({
+          userId: response.user.userId,
+          socketId: response.user.socketId,
+          username: form.username,
+        });
 
-          setChat({
-            ownerSocketId: response.user.socketId,
-            code: response.code!,
-          });
+        setChat({
+          ownerSocketId: response.user.socketId,
+          code: response.code!,
+        });
 
-          navigate("/chat");
-        } else {
-          console.error(response.error);
-        }
-      });
-    } catch (e) {
-      console.log(e);
-    }
+        navigate("/chat");
+      } else {
+        alert(treatErrorMessages(response.error));
+        console.error(response.error);
+      }
+    });
   }
 
   async function handleEnterChat() {
-    try {
-      joinRoomSocket(form.username, form.roomCode, (response) => {
-        if (response.ok) {
-          setUser({
-            userId: response.user.userId,
-            socketId: response.user.socketId,
-            username: form.username,
-          });
+    joinRoomSocket(form.username, form.roomCode, (response) => {
+      if (response.ok) {
+        setUser({
+          userId: response.user.userId,
+          socketId: response.user.socketId,
+          username: form.username,
+        });
 
-          setChat({
-            ownerSocketId: response.ownerSocketId,
-            code: form.roomCode,
-          });
+        setChat({
+          ownerSocketId: response.ownerSocketId,
+          code: form.roomCode,
+        });
 
-          navigate("/chat");
-        } else {
-          console.error(response.error);
-        }
-      });
-    } catch (e) {
-      console.log(e);
-    }
+        navigate("/chat");
+      } else {
+        alert(treatErrorMessages(response.error));
+        console.error(response.error);
+      }
+    });
   }
 
   return {
