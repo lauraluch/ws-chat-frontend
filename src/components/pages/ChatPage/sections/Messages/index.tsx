@@ -6,8 +6,10 @@ import { MessageItem } from "../../../../commons/structure/MessageItem";
 
 interface Props {
   messages: Message[];
+  onSendMessage: (text: string) => void;
 }
-export const Messages: React.FC<Props> = ({ messages }) => {
+
+export const Messages: React.FC<Props> = ({ messages, onSendMessage }) => {
   return (
     <div className="flex flex-col h-full">
       <Card title="Mensagens" height="100%" gap="16px">
@@ -28,11 +30,7 @@ export const Messages: React.FC<Props> = ({ messages }) => {
             className="flex-shrink-0 mt-3"
             style={{ height: `${MESSAGE_INPUT_HEIGHT_PX}px` }}
           >
-            <MessageInput
-              onSendMessage={(message: string) => {
-                console.log(message);
-              }}
-            />
+            <MessageInput onSendMessage={onSendMessage} />
           </div>
         </div>
       </Card>

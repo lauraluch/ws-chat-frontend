@@ -4,6 +4,7 @@ import type { User } from "../../../types/User";
 export interface ChatContextData {
   chat?: Chat;
   user?: User;
-  createChat: (chat: Chat) => void;
-  createUser: (user: User) => void;
+  setChat: React.Dispatch<React.SetStateAction<Chat>>;
+  setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+  resetChat: () => void;
 }

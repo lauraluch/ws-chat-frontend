@@ -14,21 +14,18 @@ import type { User } from "../../../types/User";
 const ChatContext = createContext<ChatContextData>({} as ChatContextData);
 
 const ChatContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  // States
-  const [chat, setChat] = useState<Chat>();
   const [user, setUser] = useState<User>();
+  const [chat, setChat] = useState<Chat>({
+    users: [],
+    messages: [],
+  });
 
-  // Functions
-  function createChat(chat: Chat) {
-    setChat(chat);
-  }
-
-  function createUser(user: User) {
-    setUser(user);
+  function resetChat() {
+    setChat({ users: [], messages: [] });
   }
 
   return (
-    <ChatContext.Provider value={{ chat, user, createChat, createUser }}>
+    <ChatContext.Provider value={{ user, setUser, chat, setChat, resetChat }}>
       {children}
     </ChatContext.Provider>
   );
