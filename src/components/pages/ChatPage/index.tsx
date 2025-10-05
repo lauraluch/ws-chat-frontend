@@ -7,7 +7,7 @@ import { ChatDetails } from "./sections/ChatDetails";
 import { Participants } from "./sections/Participants";
 import { Messages } from "./sections/Messages";
 
-export const InitialPage: React.FC = () => {
+export const ChatPage: React.FC = () => {
   return (
     <div className="flex flex-col w-full h-full gap-4">
       <div className="flex flex-row flex-1 h-full gap-4">

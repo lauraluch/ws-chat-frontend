@@ -3,21 +3,11 @@ import { Card } from "../../commons/structure/Card";
 import { Typography } from "../../commons/toolkit/Typography";
 import { TextInput } from "../../commons/inputs/TextInput";
 import { Button } from "../../commons/buttons/Button";
-import { useState } from "react";
-import type { ChatForm } from "./types";
+import { useInitialPage } from "./hooks/useInitialPage";
 
 export const InitialPage: React.FC = () => {
-  const [form, setForm] = useState<ChatForm>({
-    username: "",
-    roomCode: "",
-  });
-
-  function handleFormChange(key: keyof ChatForm, value: string) {
-    setForm((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  }
+  const { form, handleCreateChat, handleFormChange, handleEnterChat } =
+    useInitialPage();
 
   return (
     <div className="flex flex-col w-full h-full items-center justify-center gap-4 ">
@@ -46,14 +36,14 @@ export const InitialPage: React.FC = () => {
               <Button
                 variant="secondary"
                 label="Criar uma sala"
-                onClick={() => console.log()}
+                onClick={handleCreateChat}
                 width="100%"
               />
 
               <Button
                 variant="primary"
                 label="Entrar na sala"
-                onClick={() => console.log()}
+                onClick={handleEnterChat}
                 width="100%"
                 disabled={!form?.username?.length || !form?.roomCode?.length}
               />
