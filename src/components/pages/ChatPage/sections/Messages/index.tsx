@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, type JSX } from "react";
 import { useChatContext } from "../../../../../services/contexts/useChatContext";
 import type { Message } from "../../../../../types/Message";
 import { MessageInput } from "../../../../commons/inputs/MessageInput";
@@ -9,10 +9,15 @@ import { MessageItem } from "../../../../commons/structure/MessageItem";
 interface Props {
   messages: Message[];
   onSendMessage: (text: string) => void;
+  rightComponent?: JSX.Element;
 }
 
-export const Messages: React.FC<Props> = ({ messages, onSendMessage }) => {
-  const { user, chat } = useChatContext();
+export const Messages: React.FC<Props> = ({
+  messages,
+  onSendMessage,
+  rightComponent,
+}) => {
+  const { user } = useChatContext();
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -23,16 +28,19 @@ export const Messages: React.FC<Props> = ({ messages, onSendMessage }) => {
     }
   }, [messages]);
 
-  console.log(chat);
-  console.log(user);
-
   return (
     <div className="flex flex-col h-full">
-      <Card title="Mensagens" height="100%" gap="16px">
+      <Card
+        title="Mensagens"
+        subtitle="Visualize as mensagens enviadas pelos participantes da sala."
+        height="100%"
+        endComponent={rightComponent}
+        gap="16px"
+      >
         <div className="flex flex-col h-full overflow-hidden">
           <div
             ref={scrollRef}
-            className="flex-1 overflow-auto p-3 gap-3 flex flex-col rounded-lg custom-scrollbar custom-messages-bg"
+            className="flex-1 overflow-auto p-3 gap-3 flex flex-col rounded-lg custom-inner-shadow custom-scrollbar custom-messages-bg"
           >
             {messages.map((message) => (
               <MessageItem

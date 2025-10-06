@@ -12,7 +12,7 @@ export const UserItem: React.FC<Props> = ({ user, isSelf, isCreator }) => {
   return (
     <div
       className={
-        "flex flex-row w-full py-3 px-4 items-center gap-2 justify-between bg-transparent hover:bg-layout-surface rounded-md"
+        "flex flex-row w-full py-3 px-4 items-center gap-2 justify-between bg-transparent hover:bg-layout-surface rounded-md transition-all duration-200"
       }
     >
       <div className="flex flex-row gap-1.5 items-center overflow-hidden">

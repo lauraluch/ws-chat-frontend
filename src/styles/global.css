@@ -2,34 +2,63 @@
 @tailwind utilities;
 
 @theme {
-  --color-general-primary: #8140b9;
-  --color-general-primary-medium: #965aca;
-  --color-general-primary-light: #ecdcfa;
-  --color-general-primary-lightest: #f8f1ff;
+  --color-general-primary: #6b67dd;
+  --color-general-primary-medium: #7173df;
+  --color-general-primary-light: #e0dcfa;
+  --color-general-primary-lightest: #eae4ff;
 
-  --color-general-background: #dbc9eb;
-  --color-general-darker-background: #c5a6e1;
-  --color-general-white: #ffffff;
+  --color-general-background: #e8e8e8;
+  --color-general-darker-background: #c7c2cb;
+  --color-general-white: #f8f8f8;
   --color-general-tertiary: #f1d9ff;
 
   --color-text-primary: #040404;
-  --color-text-secondary: #4a4a4a;
-  --color-text-placeholder: #6b6b6b;
+  --color-text-secondary: #6e6e6e;
+  --color-text-placeholder: #9c9c9c;
 
   --color-layout-surface: #f2f2f2;
   --color-layout-surface-dark: #e5e5e5;
   --color-layout-border: #d4d4d4;
+
+  --color-custom-bg-primary: #e5e2ff;
+  --color-custom-bg-secondary: #f0f4ff;
 
   --font-sans: "Montserrat", sans-serif;
   --font-montserrat: "Montserrat", sans-serif;
 }
 
 .custom-messages-bg {
-  background-color: #fbf4ff;
-  background-image: linear-gradient(#e9dbf4 1px, transparent 1px),
-    linear-gradient(to right, #e9dbf4 1px, #fbf3ff 1px);
-  background-size: 20px 20px;
+  background-color: #e5e5f7;
+  opacity: 0.2;
+  background-image: repeating-radial-gradient(
+      circle at 0 0,
+      transparent 0,
+      #e5e5f7 50px
+    ),
+    repeating-linear-gradient(#cdcedd55, #bea2f1);
 }
+
+.custom-inner-shadow {
+  box-shadow: inset 0px 2px 8px 0px #b99dd3;
+}
+
+/* background-color: #e5e5f7;
+opacity: 0.8;
+background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e5e5f7 37px ), repeating-linear-gradient( #444cf755, #444cf7 ); */
+
+/* .custom-messages-bg {
+  background-color: var(--color-custom-bg-secondary);
+  background-image: linear-gradient(
+      var(--color-custom-bg-primary) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to right,
+      var(--color-custom-bg-primary) 1px,
+      var(--color-custom-bg-secondary) 1px
+    );
+  background-size: 20px 20px;
+} */
 
 .custom-scrollbar {
   /* Ajustando a largura da barra de rolagem */

@@ -1,9 +1,8 @@
 import type { JSX } from "react";
 
-export interface SidebarItem {
+export interface ActionItem {
   label: string;
   icon: JSX.Element;
   href?: string;
-  selected?: boolean;
   onClick?: () => void;
 }

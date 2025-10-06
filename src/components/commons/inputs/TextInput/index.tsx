@@ -35,7 +35,7 @@ export const TextInput = React.forwardRef<TextInputMethods, Props>(
 
         <input
           ref={inputRef}
-          className="flex flex-row border-layout-border border-1 p-2 rounded-md focus:outline-1 focus:outline-general-background focus:border-general-background"
+          className="flex flex-row border-layout-border border-1 p-2 rounded-md focus:outline-1 focus:outline-general-background focus:border-layout-border"
           placeholder={placeholder}
           value={value}
           onChange={(e) => onValueChange(e.target.value)}

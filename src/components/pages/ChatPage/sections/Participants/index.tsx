@@ -12,10 +12,12 @@ export const Participants: React.FC<Props> = ({ participants }) => {
   const { chat, user } = useChatContext();
 
   return (
-    <div>
+    <div className="flex flex-col h-full w-full ">
       <Card
         title="Participantes"
+        subtitle="Conforme mais pessoas entrarem na sala, seus nomes de usuário aparecerão aqui."
         height="100%"
+        gap="12px"
         endComponent={
           <Typography variant="p3" color="var(--color-text-secondary)">
             ({participants.length})

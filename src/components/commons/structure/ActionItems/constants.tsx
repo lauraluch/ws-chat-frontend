@@ -1,10 +1,10 @@
 import { LogOut, MessageCircleOff } from "lucide-react";
-import type { SidebarItem } from "../../../../types/SidebarItem";
+import type { ActionItem } from "../../../../types/ActionItem";
 
 export function getSidebarItems(
   onSignoutClick: () => void,
   onClearChatClick: () => void
-): SidebarItem[] {
+): ActionItem[] {
   return [
     {
       label: "Signout",

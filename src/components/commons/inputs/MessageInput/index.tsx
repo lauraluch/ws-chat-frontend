@@ -24,7 +24,7 @@ export const MessageInput: React.FC<Props> = ({ onSendMessage }) => {
       <input
         value={inputValue}
         onChange={(e) => setInputValue(e.currentTarget.value)}
-        className={`flex flex-row items-center w-full h-full p-2 bg-white border-1 border-general-primary-light rounded-lg focus:outline-general-darker-background focus:outline-1 focus:border-general-darker-background`}
+        className={`flex flex-row items-center w-full h-full p-2 bg-white border-1 border-general-primary-light rounded-lg focus:border-general-darker-background focus:outline-1 focus:outline-general-darker-background outline-none transition-all duration-150`}
         placeholder="Digite uma mensagem..."
         onKeyDown={(e) => {
           if (e.key === "Enter") {
