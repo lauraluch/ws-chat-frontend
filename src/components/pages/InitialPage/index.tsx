@@ -1,5 +1,4 @@
 import type React from "react";
-import { Card } from "../../commons/structure/Card";
 import { TextInput } from "../../commons/inputs/TextInput";
 import { Button } from "../../commons/buttons/Button";
 import { useInitialPage } from "./hooks/useInitialPage";

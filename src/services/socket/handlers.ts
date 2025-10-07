@@ -9,6 +9,7 @@ type RoomState = {
   ownerPresent: boolean;
   users: User[];
   messages: Message[];
+  createdAt: string;
 };
 
 type ChatUpdater = (updater: (prev: any) => any) => void;
@@ -22,6 +23,7 @@ export const setupSocketListeners = (setChat: ChatUpdater) => {
       ownerPresent: roomState.ownerPresent,
       users: roomState.users,
       messages: roomState.messages,
+      createdAt: roomState.createdAt,
     }));
   };
 

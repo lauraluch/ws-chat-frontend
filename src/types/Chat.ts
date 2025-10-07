@@ -8,4 +8,5 @@ export interface Chat {
   ownerPresent?: boolean;
   users?: User[];
   messages?: Message[];
+  createdAt?: string;
 }

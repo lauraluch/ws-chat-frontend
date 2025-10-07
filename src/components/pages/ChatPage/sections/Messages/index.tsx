@@ -40,7 +40,7 @@ export const Messages: React.FC<Props> = ({
         <div className="flex flex-col h-full overflow-hidden">
           <div
             ref={scrollRef}
-            className="flex-1 overflow-auto p-3 gap-3 flex flex-col rounded-lg custom-inner-shadow custom-scrollbar custom-messages-bg"
+            className="flex-1 overflow-auto p-3 gap-3 flex flex-col rounded-lg custom-scrollbar custom-messages-bg"
           >
             {messages.map((message) => (
               <MessageItem

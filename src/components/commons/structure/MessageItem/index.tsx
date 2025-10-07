@@ -18,8 +18,8 @@ export const MessageItem: React.FC<Props> = ({ message, isSelf }) => {
     >
       <div
         className={clsx(
-          "flex  flex-col p-3 gap-2 max-w-[380px] w-fit text-wrap  rounded-lg mb-[24px]",
-          isSelf ? "bg-general-darker-background" : "bg-general-white"
+          "flex  flex-col p-3 gap-2 max-w-[380px] w-fit text-wrap rounded-lg mb-[24px] drop-shadow-sm",
+          isSelf ? "bg-general-primary-medium" : "bg-white"
         )}
       >
         {isSelf ? null : (
