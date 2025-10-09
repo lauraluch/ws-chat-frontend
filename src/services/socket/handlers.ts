@@ -1,18 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { socket } from ".";
 import type { Message } from "../../types/Message";
-import type { User } from "../../types/User";
-
-type RoomState = {
-  code: string;
-  ownerName: string;
-  ownerPresent: boolean;
-  users: User[];
-  messages: Message[];
-  createdAt: string;
-};
-
-type ChatUpdater = (updater: (prev: any) => any) => void;
+import type {
+  ChatUpdater,
+  CreateRoomResponse,
+  JoinRoomResponse,
+  RoomState,
+} from "./types";
 
 export const setupSocketListeners = (setChat: ChatUpdater) => {
   const handleRoomState = (roomState: RoomState) => {
@@ -48,6 +41,21 @@ export const setupSocketListeners = (setChat: ChatUpdater) => {
     socket.off("room_state", handleRoomState);
     socket.off("new_message", handleNewMessage);
   };
+};
+
+export const createRoomSocket = (
+  username: string,
+  callback: (response: CreateRoomResponse) => void
+) => {
+  socket.emit("create_room", { username }, callback);
+};
+
+export const joinRoomSocket = (
+  username: string,
+  code: string,
+  callback: (response: JoinRoomResponse) => void
+) => {
+  socket.emit("join_room", { username, code }, callback);
 };
 
 export const leaveRoom = (onLeft: (response: { ok: boolean }) => void) => {
