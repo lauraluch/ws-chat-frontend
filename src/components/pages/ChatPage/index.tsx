@@ -7,7 +7,9 @@ import { Messages } from "./sections/Messages";
 import { useChatPage } from "./hooks/useChatPage";
 
 export const ChatPage: React.FC = () => {
-  const { chat, sendMessage, handleSignout, clearMessages } = useChatPage();
+  // Hooks
+  const { chat, handleEmitMessage, handleSignout, clearMessages } =
+    useChatPage();
 
   return (
     <div className="flex flex-col w-full h-full gap-4 p-4">
@@ -22,7 +24,7 @@ export const ChatPage: React.FC = () => {
           <div className="flex flex-col flex-5">
             <Messages
               messages={chat?.messages || []}
-              onSendMessage={sendMessage}
+              onSendMessage={handleEmitMessage}
               rightComponent={
                 <ActionItems
                   items={getSidebarItems(handleSignout, clearMessages)}

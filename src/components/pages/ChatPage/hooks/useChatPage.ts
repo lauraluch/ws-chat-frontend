@@ -1,4 +1,5 @@
-import { useCallback, useEffect } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
 import { useChatContext } from "../../../../services/contexts/useChatContext";
 import { useNavigate } from "react-router-dom";
 import {
@@ -12,7 +13,7 @@ export function useChatPage() {
   const navigate = useNavigate();
   const { user, chat, setChat, resetChat, clearMessages } = useChatContext();
 
-  const handleSignout = useCallback(() => {
+  function handleSignout() {
     if (!chat?.code) {
       resetChat();
       navigate("/");
@@ -23,7 +24,11 @@ export function useChatPage() {
       resetChat();
       navigate("/");
     });
-  }, [chat?.code, resetChat, navigate]);
+  }
+
+  function handleEmitMessage(text: string) {
+    sendMessage(text);
+  }
 
   // Effects
   useEffect(() => {
@@ -31,7 +36,6 @@ export function useChatPage() {
       resetChat();
       navigate("/");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chat?.code]);
 
   useEffect(() => {
@@ -39,15 +43,11 @@ export function useChatPage() {
     return cleanup;
   }, [setChat]);
 
-  const emitMessage = useCallback((text: string) => {
-    sendMessage(text);
-  }, []);
-
   return {
     user,
     chat,
     clearMessages,
-    sendMessage: emitMessage,
+    handleEmitMessage,
     handleSignout,
   };
 }

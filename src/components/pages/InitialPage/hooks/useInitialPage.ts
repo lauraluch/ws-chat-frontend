@@ -2,11 +2,11 @@ import { useState } from "react";
 import type { ChatForm } from "../types";
 import { useChatContext } from "../../../../services/contexts/useChatContext";
 import { useNavigate } from "react-router-dom";
+import { treatErrorMessages } from "../../../../services/functions/treatErrorMessages";
 import {
   createRoomSocket,
   joinRoomSocket,
-} from "../../../../services/socket/initialHandlers";
-import { treatErrorMessages } from "../../../../services/functions/treatErrorMessages";
+} from "../../../../services/socket/handlers";
 
 export function useInitialPage() {
   // Hooks
@@ -26,6 +26,7 @@ export function useInitialPage() {
       [key]: value,
     }));
   }
+
   async function handleCreateChat() {
     createRoomSocket(form.username, (response) => {
       if (response.ok) {

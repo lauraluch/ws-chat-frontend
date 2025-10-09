@@ -33,4 +33,4 @@ export type RoomState = {
   createdAt: string;
 };
 
-export type ChatUpdater = (updater: (prev: Partial<Chat>) => void) => void;
+export type ChatUpdater = React.Dispatch<React.SetStateAction<Chat>>;

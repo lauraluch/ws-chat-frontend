@@ -15,7 +15,7 @@ export const ChatDetails: React.FC = () => {
         icon={<img src="/logo.png" alt="Logo" className="w-12 h-auto" />}
       >
         <div className="flex flex-row gap-2 items-center">
-          <RoomCodeBadge code={chat?.code || ""} />
+          {chat?.code ? <RoomCodeBadge code={chat?.code} /> : null}
         </div>
 
         {chat?.createdAt ? (

@@ -17,6 +17,12 @@ export const MessageInput: React.FC<Props> = ({ onSendMessage }) => {
     setInputValue("");
   }
 
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") {
+      handleSendMessage();
+    }
+  }
+
   return (
     <div className={`flex flex-row items-end w-full gap-4 `}>
       <div className="flex flex-col w-full items-end">
@@ -33,11 +39,7 @@ export const MessageInput: React.FC<Props> = ({ onSendMessage }) => {
           style={{ height: `${MESSAGE_INPUT_HEIGHT_PX}px` }}
           className={`flex flex-row items-center w-full h-full p-2 bg-white border-1 border-general-primary-light rounded-lg focus:border-general-darker-background focus:outline-1 focus:outline-general-darker-background outline-none transition-all duration-150`}
           placeholder="Digite uma mensagem..."
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              handleSendMessage();
-            }
-          }}
+          onKeyDown={handleKeyDown}
         />
       </div>
 

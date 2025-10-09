@@ -9,6 +9,7 @@ interface Props {
 }
 
 export const Participants: React.FC<Props> = ({ participants }) => {
+  // Hooks
   const { chat, user } = useChatContext();
 
   return (

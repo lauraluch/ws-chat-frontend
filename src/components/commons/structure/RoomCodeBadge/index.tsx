@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { Typography } from "../../toolkit/Typography";
 import { Copy, Check } from "lucide-react";
 
@@ -16,20 +16,14 @@ async function copyToClipboard(text: string) {
 
 export const RoomCodeBadge: React.FC<Props> = ({ code, feedbackMs = 1500 }) => {
   const [copied, setCopied] = useState(false);
-  const timerRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (timerRef.current) window.clearTimeout(timerRef.current);
-    };
-  }, []);
 
   async function handleCopy() {
     if (await copyToClipboard(code)) {
       setCopied(true);
 
-      if (timerRef.current) window.clearTimeout(timerRef.current);
-      timerRef.current = window.setTimeout(() => setCopied(false), feedbackMs);
+      setTimeout(() => {
+        setCopied(false);
+      }, feedbackMs);
     }
   }
 

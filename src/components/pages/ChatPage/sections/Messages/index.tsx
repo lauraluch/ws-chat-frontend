@@ -16,10 +16,13 @@ export const Messages: React.FC<Props> = ({
   onSendMessage,
   rightComponent,
 }) => {
+  // Hooks
   const { user } = useChatContext();
 
+  // Refs
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  // Effects
   useEffect(() => {
     const container = scrollRef.current;
     if (container) {
