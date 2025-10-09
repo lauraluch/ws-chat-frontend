@@ -1,9 +1,7 @@
 // src/services/socket.ts
 import { io } from "socket.io-client";
 
-const socketURL = import.meta.env.VITE_SERVER_PATH;
-
 // se o back está rodando localmente na sua máquina:
-export const socket = io(`http://${socketURL || "localhost"}:3001`, {
+export const socket = io(`http://2d7e3bc585a3.ngrok-free.app`, {
   transports: ["websocket"],
 });
