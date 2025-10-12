@@ -34,6 +34,16 @@ ou usando npm:
 npm run dev
 ```
 
+## Ideias de implementações
+
+- Adicionar autenticação (precisa de alterações no backend também)
+- Criar persistência dos dados no cache do navegador (por exemplo, localStorage)
+- Tornar a aplicação responsiva (celular, tablet)
+- Tornar a aplicação acessível (texto alt, opção de alto contraste, etc.)
+- Implementar feature de banir/mutar usuários
+- Emitir um som quando um usuário enviar uma mensagem
+
+
 ## Dúvidas e Sugestões
 
 Se você tem qualquer dúvida, sugestão, crítica construtiva ou afins, por favor, entre em contato comigo. Estamos todos aprendendo juntos, então sinta-se à vontade para me ajudar ou pedir ajuda.
